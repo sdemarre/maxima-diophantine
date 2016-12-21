@@ -163,7 +163,7 @@ remove_rat_sols(s):=remove_if_not(integer_solution_p, s);
 dio_subst(sols,eq):=map(lambda([s],subst(s,eq)),sols);
 
 dio_coeffs(eq):=block([vars:listofvars(eq)],
-  if length(vars)=1 then vars:[vars[1],gensym()],
+  if length(vars)=1 then vars:[vars[1],'dio_tempvar],
   if op(eq)="=" then eq:lhs(eq)-rhs(eq),
   ['a=coeff(eq,vars[1],2),'b=coeff(coeff(eq,vars[2]),vars[1]),'c=coeff(eq,vars[2],2),'d=coeff(coeff(eq,vars[1]),vars[2],0),'e=coeff(coeff(eq,vars[2]),vars[1],0),'f=coeff(coeff(eq,vars[1],0),vars[2],0)]);
 
@@ -186,7 +186,7 @@ dio_make_d_zero_transform(x,y,a,b,c,d,e,f):=block([B,C,e1,X:'Xd,Y:'Yd],
 dio_make_e_zero_transform(x,y,a,b,c,d,e,f):=block([B,C,e1,X:'Xe,Y:'Ye],
   e1:2*c/e, B:ratnum(e1), C:denom(e1),
   [y=1/B*X-C/B,x=Y]);
-dio_make_a_one_transform(x,y,a,b,c,d,e,f):=block([X:gensym("X"),Y:gensym("Y")],
+dio_make_a_one_transform(x,y,a,b,c,d,e,f):=block([X:'Xa,Y:'Ya],
   [x=X/a,y=Y]);
 dio_apply_transform(eq,transform_name):=block([vars:listofvars(eq),coeffs:map(rhs,dio_coeffs(eq)),new_eq,transform],
   transform:apply(transform_name,append(vars,coeffs)),
@@ -393,8 +393,8 @@ dio_all_pell_solutions2(x,y,D,N):=block([p:subst(dio_min_pos_pell_solution(x,y,D
 dio_pell_int_solution_arrays(x,y,D,N,k,L):=block([p:map(rhs,dio_min_pos_pell_solution(x,y,D,1)),lmm:map(lambda([s],map(rhs,s)),dio_lmm(x,y,D,N)),l],
   makelist(?dio_integer_pell_array(p[1],p[2],l[1],l[2],D,k,L),l,lmm));
 
-diophantine_swap_vars(eq):=block([vars:listofvars(eq),tempvar:gensym()],
-  subst(tempvar=vars[2],subst(vars[2]=vars[1],subst(vars[1]=tempvar,eq))));
+diophantine_swap_vars(eq):=block([vars:listofvars(eq)],
+  subst('tempvar=vars[2],subst(vars[2]=vars[1],subst(vars[1]='tempvar,eq))));
 
 diophantine_solve(dio_eq) := nested_sort(diophantine_solve1(dio_eq));
 
