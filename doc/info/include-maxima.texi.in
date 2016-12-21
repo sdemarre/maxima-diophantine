@@ -162,6 +162,7 @@ and develop DOE Macsyma, now called Maxima.
 * contrib_ode-pkg::                 Additional routines for ODEs
 * descriptive-pkg::                 Descriptive statistics.
 * diag-pkg::                        Jordan matrices.
+* diophantine-pkg::                 Solve diophantine equations.
 * distrib-pkg::                     Probability distributions.
 * draw-pkg::                        A Maxima-Gnuplot interface.
 * drawdf-pkg::                      Direction fields with Gnuplot.
@@ -444,6 +445,10 @@ descriptive
 
 diag
 * Functions and Variables for diag::
+
+diophantine
+* Introduction to diophantine::
+* Functions and Variables for diophantine::
 
 distrib
 * Introduction to distrib::
@@ -813,11 +818,15 @@ Understanding maxima's output
 @chapter descriptive
 @include descriptive.texi
 
-@node diag-pkg, distrib-pkg, descriptive-pkg, Top
+@node diag-pkg, diophantine-pkg, descriptive-pkg, Top
 @chapter diag
 @include diag.texi
 
-@node distrib-pkg, draw-pkg, diag-pkg, Top
+@node diophantine-pkg, distrib-pkg, diag-pkg, Top
+@chapter diophantine
+@include diophantine.texi
+
+@node distrib-pkg, draw-pkg, diophantine-pkg, Top
 @chapter distrib
 @include distrib.texi
 

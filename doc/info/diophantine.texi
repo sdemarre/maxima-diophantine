@@ -33,7 +33,7 @@
 * Functions and Variables for diophantine::
 @end menu
 
-@node Introduction to diophantine, Functions and Variables for MYTOPIC, Top, Top
+@node Introduction to diophantine, Functions and Variables for diophantine, Top, Top
 @section Introduction to diophantine
 
 @code{diophantine} is package to solve diophantine equations of the form @math{ax^2+bxy+cy^2+dx+ey+f=0} with @math{a,b,c,d,e} and @math{f} integer coefficients, @math{x} and @math{y} the variables which can only take integer values.
