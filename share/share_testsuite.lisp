@@ -93,5 +93,6 @@
     "rtest_finance"
     "rtest_fft"
     "rtest_rfft"
-    "rtest_decfp")
+    "rtest_decfp"
+    "rtest_diophantine")
   )
