@@ -1,32 +1,3 @@
-@c NOTE: This template.texi shows how to create a texinfo file that is
-@c incorporated into maxima.info. See template-standalone.texi for a
-@c texinfo file which is accessed apart from maxima.info.
-
-@c NOTE: To bring MYTOPIC into maxima.info, you need to make references
-@c to MYTOPIC in 3 places. Search for "lbfgs" in maxima.texi for an example.
-@c
-@c 1. Under the heading "Additional packages" (line 139 at the moment)
-@c    Here you put "MYTOPIC:: Transmogrification a la Smith and Jones."
-@c
-@c 2. Under the heading "The Detailed Node Listing" (line 178 at the moment)
-@c    Here you copy the @menu which is defined in this file.
-@c
-@c 3. In the @node list (line 544 at the moment)
-@c    You MUST fix up the preceding and succeeding @nodes when you
-@c    create a new @node MYTOPIC.
-@c
-@c    @node PRECEDINGTOPIC, MYTOPIC, PRECEDINGPRECEDINGTOPIC, Top
-@c    @chapter PRECEDINGTOPIC
-@c    @include PRECEDINGTOPIC.texi
-@c
-@c    @node MYTOPIC, NEXTTOPIC, PRECEDINGTOPIC, Top
-@c    @chapter MYTOPIC
-@c    @include MYTOPIC.texi
-@c
-@c    @node NEXTTOPIC, NEXTNEXTTOPIC, MYTOPIC, Top
-@c    @chapter NEXTTOPIC
-@c    @include NEXTTOPIC.texi
-
 
 @menu
 * Introduction to diophantine::
@@ -45,10 +16,73 @@
 
 Computes solutions for the @code{equation}. The result is always a list, which can be empty if no solutions exist. Sometimes, there are infinitely many solutions, so a parametrized representation is used. The parameter is of the form @math{%zi} for an integer parameter or @math{%ni} for a natural (positive) parameter. Both are suitably declared with @code{new_variable('integer)} or @code{new_variable('natural)} from the @code{to_poly_solve} package.
 
+Examples:
+
+@c ===beg===
+@c load(diophantine)$
+@c diophantine_solve(2*x*y+5*x+56*y+7);
+@c diophantine_solve(14*y^2+90*x*y-82*y+3*x^2-25*x-26);
+@c diophantine_solve(-p^2+2*q^2+4);
+@c ===end===
+@example
+(%i1) load(diophantine)$
+@group
+(%i2) diophantine_solve(2*x*y+5*x+56*y+7);
+(%o2) [[x = - 161, y = - 3], [x = - 47, y = - 6], 
+[x = - 35, y = - 12], [x = - 29, y = - 69], [x = - 27, y = 64], 
+[x = - 21, y = 7], [x = - 9, y = 1], [x = 105, y = - 2]]
+@end group
+@group
+(%i3) diophantine_solve(14*y^2+90*x*y-82*y+3*x^2-25*x-26);
+(%o3)                          []
+@end group
+(%i4) diophantine_solve(-p^2+2*q^2+4);
+                5/2     %z1         5/2 %z1
+              (2    + 6)    + (6 - 2   )
+(%o4) [[p = - -----------------------------, 
+                           %z1
+                          2
+       5/2     %z1         5/2 %z1   (- %z1) - 1/2
+q = ((2    + 6)    - (6 - 2   )   ) 2             ], 
+       5/2     %z1         5/2 %z1
+     (2    + 6)    + (6 - 2   )
+[p = -----------------------------, 
+                  %z1
+                 2
+       5/2     %z1         5/2 %z1   (- %z1) - 1/2
+q = ((2    + 6)    - (6 - 2   )   ) 2             ]]
+@end example
+
 @end deffn
 
 @deffn {diophantine_instantiate_solutions} (@var{solution}, @var{param_first}, [@var{param_last}, @var{option}])
 
 Given a parametrized @code{solution} from @code{diophantine_solve}, will compute all the actual solutions, with the parameter varying from @code{param_first} to @code{param_last} (which defaults to @code{param_first}). If @code{option} is @code{'sorted}, the list of solutions will be sorted by increasing (sum of the squares of the values). 
+
+Examples:
+
+@c ===beg===
+@c load(diophantine)$
+@c sol:diophantine_solve(x**2 - 2*x*y + y**2 + 2*x + 2*y + 1);
+@c diophantine_instantiate_solutions(sol,-3,3,sorted);
+@c ===end===
+@example
+(%i1) load(diophantine)$
+@group
+(%i2) sol:diophantine_solve(x**2 - 2*x*y + y**2 + 2*x + 2*y + 1);
+                    2                           2
+(%o2) [[x = (- 4 %z1 ) + 4 %z1 - 1, y = (- 4 %z1 ) + 8 %z1 - 4], 
+                                  2              2
+                      [x = - 4 %z1 , y = (- 4 %z1 ) + 4 %z1 - 1]]
+@end group
+@group
+(%i3) diophantine_instantiate_solutions(sol,-3,3,sorted);
+(%o3) [[x = - 1, y = 0], [x = 0, y = - 1], [x = - 1, y = - 4], 
+[x = - 4, y = - 1], [x = - 9, y = - 4], [x = - 4, y = - 9], 
+[x = - 9, y = - 16], [x = - 16, y = - 9], [x = - 25, y = - 16], 
+[x = - 16, y = - 25], [x = - 25, y = - 36], 
+[x = - 36, y = - 25], [x = - 36, y = - 49], [x = - 49, y = - 64]]
+@end group
+@end example
 
 @end deffn
