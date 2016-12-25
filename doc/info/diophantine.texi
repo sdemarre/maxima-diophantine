@@ -14,7 +14,7 @@
 
 @deffn {Function} diophantine_solve (@var{equation})
 
-Computes solutions for the @code{equation}, which has to be of the form @math{ax^2+bxy+cy^2+dx+ey+f=0} with @math{a,b,c,d,e} and @math{f} integer coefficients, @math{x} and @math{y} the variables which can only take integer values. The result is always a list, which can be empty if no solutions exist. Sometimes, there are infinitely many solutions, so a parametrized representation is used. The parameter is of the form @math{%zi} for an integer parameter or @math{%ni} for a natural (positive) parameter. Both are suitably declared with @code{new_variable('integer)} or @code{new_variable('natural)} from the @code{to_poly_solve} package.
+Computes solutions for the @code{equation}, which has to be of the form @math{ax^2+bxy+cy^2+dx+ey+f=0} with @math{a,b,c,d,e} and @math{f} integer coefficients, @math{x} and @math{y} the variables which can only take integer values. The result is always a list. If an empty list is returned, it means no solutions exist. Sometimes, there are infinitely many solutions, but those infinite solutions can be described by a parametrized representation. The parameter is of the form @math{%zi} for an integer parameter or @math{%ni} for a natural (positive) parameter. Both are suitably declared with @code{new_variable('integer)} or @code{new_variable('natural)} from the @code{to_poly_solve} package.
 
 Examples:
 
