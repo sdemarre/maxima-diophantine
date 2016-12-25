@@ -2,11 +2,11 @@
 kill(r,s,x,y,p,q,%param,%pparam);
 done$
 
-%param:dio_gensym();
-''(dio_gensym())$
+%param:diophantine_gensym();
+''(diophantine_gensym())$
 
-%pparam:dio_gensym_pos();
-''(dio_gensym_pos())$
+%pparam:diophantine_gensym_pos();
+''(diophantine_gensym_pos())$
 
 /* ******************** single variable */
 
@@ -254,7 +254,7 @@ ratsimp(diophantine_solve(14*y^2-9*x*y-6*y-15*x^2-15*x-11));
 diophantine_solve(-55*y^2-29*x*y-60*y+24*x^2-54*x+85);
 []$
 
-/* used to trigger a bug in dio_lmm() */
+/* used to trigger a bug in diophantine_lmm() */
 ratsimp(diophantine_solve(x^2-119*y^2=18)); /* x=(3*X-17*Y+8)/12327,y=(-19*X+6*Y-13)/531; */ /* x=17*X-13*Y+12,y=-17*X+9*Y-3; */
 ''(ratsimp([[x = (3*sqrt(119)*((11*sqrt(119)+120)^%param-(120-11*sqrt(119))^%param))/2
     -(33*((11*sqrt(119)+120)^%param+(120-11*sqrt(119))^%param))/2,

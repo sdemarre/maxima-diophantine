@@ -3,10 +3,10 @@
 ;; see Solving the generalized Pell equation x^2 - Dy^2 = N, John P. Robertson, July 31, 2004, Pages 4 - 8. http://www.jpr2718.org/pell.pdf
 ;; computes the simple continued fraction expansion of the quadratic irrational (P+sqrt(D))/Q
 ;; returns a maxima list of equations with values which are arrays
-(defun $dio_pqa (p q d)
+(defun $diophantine_pqa (p q d)
   "computes the continued fraction of (p+sqrt(d))/q"
   (if (not (zerop (mod (- d (* p p)) q)))
-      ($dio_pqa (* p (abs q)) (* q (abs q)) (* d q q))
+      ($diophantine_pqa (* p (abs q)) (* q (abs q)) (* d q q))
       (let ((qd (sqrt (* d 1.0d0)))
 	    (p (list p))
 	    (q (list q)))        
@@ -62,7 +62,7 @@
 		  (mlist '$xi xi)
 		  (mlist '$cxi cxi)))))))
 
-(defun $dio_point_ranges (point-data)
+(defun $diophantine_point_ranges (point-data)
   (let ((point-data (rest (mapcar #'rest point-data))))
     (list '(mlist simp)
 	  (reduce #'min point-data :key #'first)
@@ -100,12 +100,12 @@
 				,@(unless (zerop e) (list e))
 				,@(unless (zerop c) (list c)))))))
        (cons '(mlist simp) result))))
-(defun $dio_brute_force (a b c d e f limit &optional pos)
+(defun $diophantine_brute_force (a b c d e f limit &optional pos)
   (with-output-to-string (*error-output*)
     (compile 'bf-fun (make-bf-checker-form a b c d e f)))
   (funcall 'bf-fun limit pos))
 
-(defun $dio_compute_k_power (a b q l)
+(defun $diophantine_compute_k_power (a b q l)
   "Finds k so that (a+sqrt(q)*b)^k = 1 mod l. Assumes such a k exists. If not,
 this function will search forever."
   (let ((ca a)
@@ -134,7 +134,7 @@ this function will search forever."
   (let ((var-eq-list (find-if #'(lambda (candidate) (eq (second candidate) var)) (rest pqa))))
     (when var-eq-list (rest (third var-eq-list)))))
 (defun min-pos-pell-values (d n)
-  (rest (mcall '$map '$rhs (mcall '$dio_min_pos_pell_solution '$t '$u d n))))
+  (rest (mcall '$map '$rhs (mcall '$diophantine_min_pos_pell_solution '$t '$u d n))))
 (defun quadratic-congruences (d m qroots l-min l-max)
   (if (equalp qroots '((mlist simp) 0))
    (let ((dmodm (mod d m))
@@ -158,7 +158,7 @@ this function will search forever."
 	    (push root result)))
      (reverse result))))
 ;;  lmm as described in "Solving the generalized Pell equation" 2004 by John P. Robertson, http://www.jpr2718.org/pell.pdf
-(defun $dio_lmm (x y d n)
+(defun $diophantine_lmm (x y d n)
   (let (result)
     (loop for f in (square-divisors n) do
 	 (let* ((m (/ n (* f f)))
@@ -169,7 +169,7 @@ this function will search forever."
 	       (let ((qgs (quadratic-congruences d absm qroots (1+ (truncate (- limit))) (1+ (truncate limit)))))
 		 (loop for z in qgs do
 		      (when (= (mod (* z z) absm) (mod d absm))
-			(let ((pqa ($dio_pqa z absm d))
+			(let ((pqa ($diophantine_pqa z absm d))
 			      (found nil))
 			  (loop for qi in (rest (pqa-get pqa '$q))
 			     and r in (cddr (pqa-get pqa '$g))
@@ -200,8 +200,8 @@ this function will search forever."
 		(return-from check-mod-solution)))))
   t)
 
-(defun $dio_check_mod (eq)
-  (let ((coeffs (mapcar #'caddr (rest (mcall '$dio_coeffs eq)))))
+(defun $diophantine_check_mod (eq)
+  (let ((coeffs (mapcar #'caddr (rest (mcall '$diophantine_coeffs eq)))))
     (not (or (apply #'check-mod-solution (cons 4 coeffs))
 	     (apply #'check-mod-solution (cons 16 coeffs))
 	     (apply #'check-mod-solution (cons 25 coeffs))))))

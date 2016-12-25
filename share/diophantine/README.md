@@ -70,31 +70,31 @@ There is a file with tests available, run it like this:
 
 ```
 	(%i7) load(diophantine_draw)$
-	(%i8) dio_draw_example();
+	(%i8) diophantine_draw_example();
 ```
 
-![Graphical example](dio_draw_example.png)
+![Graphical example](diophantine_draw_example.png)
 
 ```
-	(%i9) dio_draw_example2();
+	(%i9) diophantine_draw_example2();
 ```
 
-![Graphical example 2](dio_draw_example2.png)
+![Graphical example 2](diophantine_draw_example2.png)
 
 ```
-	(%i10) dio_draw_example3();
+	(%i10) diophantine_draw_example3();
 ```
 
-![Graphical example 3](dio_draw_example3.png)
+![Graphical example 3](diophantine_draw_example3.png)
 
 ```
-	(%i11) dio_draw_example4();
+	(%i11) diophantine_draw_example4();
 ```
 
-![Graphical example 4](dio_draw_example4.png)
+![Graphical example 4](diophantine_draw_example4.png)
 
-In general, you can use dio_draw() to draw the equation with (some of) its solutions:
+In general, you can use diophantine_draw() to draw the equation with (some of) its solutions:
 
 ```
-	(%i17) dio_draw(x^2-7*y^2=-3);
+	(%i17) diophantine_draw(x^2-7*y^2=-3);
 ```
