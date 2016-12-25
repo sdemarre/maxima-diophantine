@@ -1,6 +1,15 @@
 /*
-solves linear and quadratic diophantine equations with constant integer coefficients.
-based on dario alpern's solution, see https://www.alpertron.com.ar/QUAD.HTM
+solves linear and quadratic diophantine equations with constant integer coefficients:
+a*x^2 + b*x*y + c*y^2 + d*x + e*y + f = 0
+with variables x and y taking only integer values
+
+uses methods described by Dario Alpern (https://www.alpertron.com.ar/QUAD.HTM) for the following cases:
+   a=b=c=0 (linear case)
+   a=c=0,b#0 (symple hyperbolic case)
+   b^2-4ac<0 (elliptic case)
+   b^2=4*a*c (parabolic case)
+uses methods described John Robertson (http://www.jpr2718.org/ax2p.pdf) for the hyperbolic case b^2-4ac>0
+
 usage:
   load(diophantine);
   diophantine_solve(3*x^2+2*y-3);
