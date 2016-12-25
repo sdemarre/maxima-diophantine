@@ -12,9 +12,9 @@
 @node Functions and Variables for diophantine, Introduction to diophantine, Top
 @section Functions and Variables for diophantine
 
-@deffn {diophantine_solve} (@var{equation})
+@deffn {Function} diophantine_solve (@var{equation})
 
-Computes solutions for the @code{equation}. The result is always a list, which can be empty if no solutions exist. Sometimes, there are infinitely many solutions, so a parametrized representation is used. The parameter is of the form @math{%zi} for an integer parameter or @math{%ni} for a natural (positive) parameter. Both are suitably declared with @code{new_variable('integer)} or @code{new_variable('natural)} from the @code{to_poly_solve} package.
+Computes solutions for the @code{equation}, which has to be of the form @math{ax^2+bxy+cy^2+dx+ey+f=0} with @math{a,b,c,d,e} and @math{f} integer coefficients, @math{x} and @math{y} the variables which can only take integer values. The result is always a list, which can be empty if no solutions exist. Sometimes, there are infinitely many solutions, so a parametrized representation is used. The parameter is of the form @math{%zi} for an integer parameter or @math{%ni} for a natural (positive) parameter. Both are suitably declared with @code{new_variable('integer)} or @code{new_variable('natural)} from the @code{to_poly_solve} package.
 
 Examples:
 
@@ -55,7 +55,7 @@ q = ((2    + 6)    - (6 - 2   )   ) 2             ]]
 
 @end deffn
 
-@deffn {diophantine_instantiate_solutions} (@var{solution}, @var{param_first}, [@var{param_last}, @var{option}])
+@deffn {Function} diophantine_instantiate_solutions (@var{solution}, @var{param_first}, [@var{param_last}, @var{option}])
 
 Given a parametrized @code{solution} from @code{diophantine_solve}, will compute all the actual solutions, with the parameter varying from @code{param_first} to @code{param_last} (which defaults to @code{param_first}). If @code{option} is @code{'sorted}, the list of solutions will be sorted by increasing (sum of the squares of the values). 
 
