@@ -151,7 +151,7 @@ diophantine_solve_hyperbolic_homogenous(x, y, a, b, c, f):=block([],
         elseif (a=-1 or c=-1) then diophantine_solve_hyperbolic_homogenous(x,y,-a,0,-c,-f)
         else diophantine_solve_with_transform(x,y,a,0,c,0,0,f,diophantine_make_a_one_transform))
       else diophantine_solve_with_transform(x,y,a,b,c,0,0,f,diophantine_make_b_zero_transform))
-    else 'tbd2)));
+    else [])));
 
 diophantine_infinite_solutions(sol):=not freeof(diophantine_gensym(),sol) or not freeof(diophantine_gensym_pos(), sol);
 
