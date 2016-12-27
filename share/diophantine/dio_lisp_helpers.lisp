@@ -108,12 +108,14 @@
 (defun $diophantine_compute_k_power (a b q l)
   "Finds k so that (a+sqrt(q)*b)^k = 1 mod l. Assumes such a k exists. If not,
 this function will search forever."
-  (let ((ca a)
-	(cb b))
-    (do* ((k 1 (1+ k)))
-	 ((and (= (mod ca l) 1) (= (mod cb l) 0)) k)
-      (psetf ca (mod (+ (* a ca) (* b cb q)) l)
-	     cb (mod (+ (* a cb) (* b ca)) l)))))
+  (let ((a (mod a l))
+	(b (mod b l)))
+    (let ((ca a)
+	  (cb b))
+      (do* ((k 1 (1+ k)))
+	   ((and (= (mod ca l) 1) (= (mod cb l) 0)) k)
+	(psetf ca (mod (+ (* a ca) (* b cb q)) l)
+	       cb (mod (+ (* a cb) (* b ca)) l))))))
 
 (defun all-multiples (l a)
   (if (null l)
