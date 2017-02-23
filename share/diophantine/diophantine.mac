@@ -226,7 +226,7 @@ diophantine_subst(sols,eq):=map(lambda([s],subst(s,eq)),sols);
 
 /* computes the a,b,c,d,e,f coefficients of an equation of the form a*x^2 + b*x*y + c*y^2 + d*x + e*y + f = 0 */
 diophantine_coeffs(eq):=block([vars:listofvars(eq)],
-  if length(vars)=1 then vars:[vars[1],'diophantine_tempvar],
+  if length(vars)=1 then vars:[vars[1],'dummyvar],
   if op(eq)="=" then eq:lhs(eq)-rhs(eq),
   ['a=coeff(eq,vars[1],2),'b=coeff(coeff(eq,vars[2]),vars[1]),'c=coeff(eq,vars[2],2),'d=coeff(coeff(eq,vars[1]),vars[2],0),'e=coeff(coeff(eq,vars[2]),vars[1],0),'f=coeff(coeff(eq,vars[1],0),vars[2],0)]);
 
