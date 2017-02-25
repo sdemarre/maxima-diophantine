@@ -92,10 +92,10 @@ diophantine_solve_simple_hyperbolic(x, y, b, d, e, f):=block([result:[]],
       diophantine_integer_expressions(x = (-v-e)/b, y = ((-d*e+b*f)/v-d)/b, [v, divs]))));
 
 diophantine_solve_elliptic(x, y, a, b, c, d, e, f):=block([tr:diophantine_transform_to_pell(a*x*x+b*x*y+c*y*y+d*x+e*y+f)],
-  block([coeffs:dio_coeffs(tr[2]),vars:listofvars(tr[2]),trsols],
+  block([coeffs:diophantine_coeffs(tr[2]),vars:listofvars(tr[2]),trsols],
     trsols:diophantine_solve_homogenous_elliptic(vars[1],vars[2],rhs(coeffs[3]),-rhs(coeffs[6])),
     trsols:remove_duplicates(append(trsols,map(lambda([s],[lhs(s[1])=-rhs(s[1]),s[2]]), trsols))),
-    remove_if_not(integer_solution_p,dio_subst(trsols,tr[1]))));
+    remove_if_not(integer_solution_p,diophantine_subst(trsols,tr[1]))));
 
 /* solves the elliptic case: b^2-4*a*c < 0 */
 diophantine_solve_elliptic_slow(x, y, a, b, c, d, e, f):=block([roots:solve((b^2-4*a*c)*x^2+2*(b*e-2*c*d)*x+(e^2-4*c*f),x), iroots],
@@ -123,11 +123,11 @@ diophantine_solve_elliptic_special(x, y, a, d, f):=block([roots:solve(a*x^2+d*x+
     if iroots[1] > iroots[2] then iroots:[iroots[2],iroots[1]],
     block([roots:makelist(i,i,iroots[1],iroots[2]), v],
       if iroots[1]=iroots[2] then
-      dio_integer_expressions(x = v, y = (sqrt(4*(a*v^2+d*v+f)))/(2*c), [v, roots])
+      diophantine_integer_expressions(x = v, y = (sqrt(4*(a*v^2+d*v+f)))/(2*c), [v, roots])
       else
       remove_duplicates(append(
-        dio_integer_expressions(x = v, y = -(sqrt(4*(a*v^2+d*v+f)))/2, [v, roots]),
-        dio_integer_expressions(x = v, y = sqrt(4*(a*v^2+d*v+f))/2, [v, roots]))))));
+        diophantine_integer_expressions(x = v, y = -(sqrt(4*(a*v^2+d*v+f)))/2, [v, roots]),
+        diophantine_integer_expressions(x = v, y = sqrt(4*(a*v^2+d*v+f))/2, [v, roots]))))));
 
 /* solve x^2 + dy^2 = n */
 diophantine_solve_homogenous_elliptic(x,y,d,n):=
@@ -508,7 +508,7 @@ block([vars:listofvars(diophantine_eq),factored_eq:factor(diophantine_eq)],
         error (diophantine_error_integer_coeffs)
         else diophantine_solve_coeffs(x,y,a,b,c,d,e,f))));
 
-dio_classify(a,b,c,d,e,f):=
+diophantine_classify(a,b,c,d,e,f):=
   if (a = 0 and b = 0 and c = 0) then diophantine_linear
   elseif (a = 0 and c = 0 and b # 0) then diophantine_simple_hyperbolic
   elseif b^2-4*a*c < 0 then diophantine_elliptic
@@ -517,7 +517,7 @@ dio_classify(a,b,c,d,e,f):=
 
 diophantine_solve_coeffs(x,y,a,b,c,d,e,f):=block([],
   map(":",['a,'b,'c,'d,'e,'f],rest(ezgcd(a,b,c,d,e,f))),
-  equation_type:dio_classify(a,b,c,d,e,f),
+  equation_type:diophantine_classify(a,b,c,d,e,f),
   if diophantine_verbose_type = true then print(equation_type),
   if equation_type = diophantine_linear then diophantine_solve_linear(x, y, d, e, f)
   elseif equation_type = diophantine_simple_hyperbolic then diophantine_solve_simple_hyperbolic(x, y, b, d, e, f)
