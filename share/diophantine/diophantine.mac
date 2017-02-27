@@ -114,16 +114,16 @@ diophantine_solve_elliptic_slow(x, y, a, b, c, d, e, f):=block([roots:solve((b^2
         diophantine_integer_expressions(x = v, y = (-(b*v+e)-sqrt((b*v+e)^2-4*c*(a*v^2+d*v+f)))/(2*c), [v, roots]))))));
 
 /* special case elliptic with b and e = 0, c=-1, used when solving homogenous elliptic */
-diophantine_solve_elliptic_special(x, y, a, d, f):=block([roots:solve(a*x^2+d*x+f,x), iroots],
+diophantine_solve_elliptic_special(x, y, a, d, f):=block([roots:solve(a*x^2+d*x+f,x), iroots, det:d^2-4*a*f],
   if length(roots) = 0 then return([])
-  else block([roots:if length(roots)=1 then [roots[1],roots[1]] else roots],
+  else block([roots:if det=0 then [roots[1],roots[1]] else roots],
     iroots:map(rhs,roots),
-    if not (isreal_p(iroots[1]) and isreal_p(iroots[2])) then return([]),
+    if det < 0 then return([]),
     iroots:map(truncate,iroots),
     if iroots[1] > iroots[2] then iroots:[iroots[2],iroots[1]],
     block([roots:makelist(i,i,iroots[1],iroots[2]), v],
-      if iroots[1]=iroots[2] then
-      diophantine_integer_expressions(x = v, y = (sqrt(4*(a*v^2+d*v+f)))/(2*c), [v, roots])
+      if det=0 then
+      diophantine_integer_expressions(x = v, y = -sqrt(4*(a*v^2+d*v+f))/2, [v, roots])
       else
       remove_duplicates(append(
         diophantine_integer_expressions(x = v, y = -(sqrt(4*(a*v^2+d*v+f)))/2, [v, roots]),
