@@ -414,7 +414,7 @@ block([result_list:ratsimp(apply(append,map(lambda([param_result],makelist(subst
   result_list));
 
 diophantine_brute_force(eq,limit,[rest]):=block([coeffs:diophantine_coeffs(eq),vars:listofvars(eq),sln],
-  sln:map(lambda([s],[vars[1]=s[1],vars[2]=s[2]]),apply(diophantine_brute_force,append(map(rhs,coeffs),[limit], if member('positive,rest) then [true] else []))),
+  sln:map(lambda([s],[vars[1]=s[1],vars[2]=s[2]]),apply(diophantine_brute_force_lisp,append(map(rhs,coeffs),[limit], if member('positive,rest) then [true] else []))),
   if member('sorted,rest) then sort(sln,diophantine_solution_magnitude_less_p) else sln);
 
 diophantine_compute_transform_if(eq,condition,transform):=block([vars:listofvars(eq),coeffs:diophantine_coeffs(eq),expr],
@@ -525,3 +525,9 @@ diophantine_solve_coeffs(x,y,a,b,c,d,e,f):=block([],
   elseif equation_type = diophantine_parabolic then diophantine_solve_parabolic(x, y, a, b, c, d, e, f)
   else diophantine_solve_hyperbolic(x, y, a, b, c, d, e, f));
 
+find_elliptic():=
+block([r:[]],
+  for i thru 100000 do block([eq:diophantine_random_eq(100)],
+    if apply(diophantine_classify,map(rhs,diophantine_coeffs(eq)))=diophantine_elliptic then block([sols:ds(eq)],
+      if length(sols)>0 then (print([eq,sols]),push([eq,sols],r)))),
+  r);

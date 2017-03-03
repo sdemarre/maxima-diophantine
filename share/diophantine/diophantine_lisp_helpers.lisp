@@ -100,7 +100,7 @@
 				,@(unless (zerop e) (list e))
 				,@(unless (zerop c) (list c)))))))
        (cons '(mlist simp) result))))
-(defun $diophantine_brute_force (a b c d e f limit &optional pos)
+(defun $diophantine_brute_force_lisp (a b c d e f limit &optional pos)
   (with-output-to-string (*error-output*)
     (compile 'bf-fun (make-bf-checker-form a b c d e f)))
   (funcall 'bf-fun limit pos))
