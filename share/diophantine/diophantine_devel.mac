@@ -188,6 +188,7 @@ modis(eq):=dis(eq,-1,sorted);
 sortbyz(eqs):=map(first,sort(map(lambda([eq],all_z_powers(ds(eq))),eqs),lambda([eqd1,eqd2],eqd1[2][1][1]<eqd2[2][1][1])));
 di():=display2d:imaxima;
 df():=display2d:false;
+dc(eq):=diophantine_coeffs(eq);
 
 /* find equation with many solutions */
 prime_list(max):=block([r:[],p:2],for i thru max do (r:cons(p,r),p:next_prime(p)),r);
